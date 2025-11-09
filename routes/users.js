@@ -7,6 +7,35 @@ const Profile = require('../models/Profile'); // Import your Profile model
 // @route   POST api/users/register
 // @desc    Register a new user
 // @access  Public
+
+router.post('/login', async (req, res) => {
+  try {
+    const { email, password }s = req.body;
+
+    // 1. Check if user exists
+    let user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ msg: 'Invalid credentials' });
+    }
+
+    // 2. Compare the entered password with the hashed password in the database
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch) {
+      return res.status(400).json({ msg: 'Invalid credentials' });
+    }
+
+    // 3. User is valid.
+    // We will create and send a JSON Web Token (JWT) here
+    // so the user stays logged in.
+    // For now, we'll just send a success message.
+    res.json({ msg: 'User logged in successfully' });
+
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
 router.post('/register', async (req, res) => {
   try {
     const { email, password, role } = req.body;
