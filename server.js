@@ -22,6 +22,9 @@ app.use(express.json());
 // for any URL that starts with '/api/users'
 app.use('/api/users', require('./routes/users'));
 
+// For '/api/matching'
+app.use('/api/matching', require('./routes/matching'));
+
 // --- 4. Start the Server ---
 const PORT = process.env.PORT || 5000; // Use port 5000 by default
 
