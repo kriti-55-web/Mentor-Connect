@@ -25,6 +25,9 @@ app.use('/api/users', require('./routes/users'));
 // For '/api/matching'
 app.use('/api/matching', require('./routes/matching'));
 
+// For '/api/profile'
+app.use('/api/profile', require('./routes/profile'));
+
 // --- 4. Start the Server ---
 const PORT = process.env.PORT || 5000; // Use port 5000 by default
 
